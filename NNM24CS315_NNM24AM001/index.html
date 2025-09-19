@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ChatWithGPT
+  </title>
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+<body>
+  <div class="sidebar" id="sidebar">
+    <button class="toggle-btn" id="toggleSidebarBtn">☰</button>
+    <div class="chat-list" id="chatList">
+      <!-- Chat buttons will go here -->
+    </div>
+    <button class="add-chat-btn" id="addChatBtn">+</button>
+  </div>
+  
+  <div class="main">
+    <div class="auth-container">
+      <button id="signInBtn">Sign In</button>
+      <button id="signUpBtn">Sign Up</button>
+    </div>
+
+    <div class="chat-window" id="chatWindow">
+      <!-- Chat messages load here -->
+    </div>
+
+    <div class="chat-input">
+      <input type="text" id="userInput" placeholder="Type your message..." autocomplete="off"/>
+      <button id="sendBtn" disabled>Send</button>
+    </div>
+  </div>
+
+    <script type="module" src="scripts/script.js"></script>
+</body>
+</html>
