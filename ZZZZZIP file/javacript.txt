@@ -1,0 +1,50 @@
+import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
+
+// Replace with your API key from Google AI Studio
+const API_KEY = "YOUR_API_KEY";
+
+// Initialize the Generative AI client
+const genAI = new GoogleGenerativeAI(API_KEY);
+
+const form = document.getElementById('chat-form');
+const input = document.getElementById('user-input');
+const chatWindow = document.getElementById('chat-window');
+
+const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+
+// Function to append a message to the chat window
+function appendMessage(message, sender) {
+    const messageDiv = document.createElement('div');
+    messageDiv.classList.add('message', `${sender}-message`);
+    messageDiv.textContent = message;
+    chatWindow.appendChild(messageDiv);
+    // Scroll to the latest message
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+}
+
+// Function to handle the form submission
+async function sendMessage(event) {
+    event.preventDefault();
+    const userMessage = input.value.trim();
+    if (!userMessage) return;
+
+    // Display user's message
+    appendMessage(userMessage, 'user');
+    input.value = '';
+
+    try {
+        // Call the Gemini API with the user's message
+        const result = await model.generateContent(userMessage);
+        const response = await result.response;
+        const text = response.text();
+
+        // Display bot's response
+        appendMessage(text, 'bot');
+    } catch (error) {
+        console.error('Error fetching from Gemini API:', error);
+        appendMessage('Oops, something went wrong. Please try again.', 'bot');
+    }
+}
+
+// Attach event listener to the form
+form.addEventListener('submit', sendMessage);
